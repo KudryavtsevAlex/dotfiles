@@ -10,15 +10,13 @@ silent! set modelines
 let mapleader = "\\"
 let maplocalleader = "_"
 
+" search related and highlighting {{{
 set hlsearch
-
-"disable incsearch cause I don't want to start search before pattern entered
-"very important rule
-"set noincsearch
-" switch off hlsearch
 set incsearch
 nnoremap <leader>hs :nohlsearch<cr>
 inoremap <leader>hs <esc>:nohlsearch<cr>a
+"}}}
+
 set history=1500
 set smartcase
 set shiftwidth=4
