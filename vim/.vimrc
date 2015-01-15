@@ -83,6 +83,9 @@ elseif $TERM == 'xterm-256color'
 elseif $TERM == 'xterm-color'
     set t_Co=256
     colo wombat256mod
+elseif $TERM == 'screen-256color'
+    set t_Co=256
+    colo wombat256mod
 else
     let xterm16_brightness = 'default'
     let xterm16_colormap = 'allblue'
@@ -219,7 +222,8 @@ inoremap <down> <nop>
 " close all opened folds automatically
 " when leave folded area
 set foldclose=all
-" set foldmethod=manual
+
+
 autocmd BufWinLeave * silent! mkview
 autocmd BufWinEnter * silent! loadview
 
@@ -236,8 +240,8 @@ autocmd CursorHold,BufWritePost * unlet! b:statusline_trailing_space_warning
 " TODO: this would be under specific files (bash, python ...etc)
 "+      cause usual text can have leading spaces and tabs instead few spaces
 " It is important for most cases
-match Error /\s\+$/
-match Error /^\s*	\+/
+"match Error /\s\+$/
+"match Error /^\s*	\+/
 
 " File templates
 "----work WEEK ACCOUNT template file------- {{{
@@ -248,14 +252,13 @@ augroup skel_group
     endif
 augroup END
 " }}}
-
 " Vimscript file settings -------------------------- {{{
-"augroup filetype_vim
-"    autocmd!
-"    autocmd FileType vim setlocal foldmethod=marker
-"augroup END
+augroup filetype_vim
+    autocmd!
+    "autocmd Filetype vim set foldmethod=marker
+    autocmd Filetype vim set foldclose=all
+augroup END
 " }}}
-
 " Setting keymap if possible --------- {{{
 if has("keymap")
     set keymap=russian-jcukenwin
