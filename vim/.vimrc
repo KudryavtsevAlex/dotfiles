@@ -68,6 +68,7 @@ set cursorcolumn
 set cursorline
 set showcmd
 
+" colorscheme {{{
 " set colorscheme
 "set background=dark
 "colorscheme solarized
@@ -89,7 +90,7 @@ else
     let xterm16_colormap = 'allblue'
     colorscheme xterm16
 endif
-
+" }}}
 " set autoindentation, smartindent is on automatically
 set autoindent
 
@@ -99,17 +100,16 @@ set clipboard=unnamed
 " go to the same column when moving rapidly (gg,shift-g,ctrl-d ...etc.)
 set nostartofline
 
-" ***** functions *******
+" ***** functions ******* {{{
 " ***********************
-
-" Used for changing the abbreviations:
+" Used for changing the abbreviations: {{{
 " e.g.:
 " :iabbrev <expr> addr <SIG>AbbrAsk('add', "your full address here")
 " function! s:AbbrAsk(abbr,expansion)
 "     let answer = confirm("Use the abbreviation '" . a:abbr . "'?", "&Yes\n&No", 1)
 "     return answer == 1 ? a:expansion : a:abbr
 " endfunction
-
+" }}}
 "Smart tab function for speed up printing under vim {{{
 function! CleverTab()
     " check if at beginning of line or after a space
@@ -177,10 +177,10 @@ function! StatuslineTrailingSpaceWarning()
     return b:statusline_trailing_space_warning
 endfunction
 " }}}
-
-" ***** mappings ********
+" }}}
+" ***** mappings ******** {{{
 " ***********************
-" command line editing mappings
+" command line editing mappings {{{
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-f> <Right>
@@ -188,17 +188,19 @@ cnoremap <C-b> <Left>
 cnoremap <C-d> <Del>
 cnoremap <Esc>b <S-Left>
 cnoremap <Esc>f <S-Right>
-
+"}}}
+" save every step when deleting by <c-w>/<c-u> {{{
+inoremap <c-u> <c-g>u<c-u>
+inoremap <c-w> <c-g>u<c-w>
+" }}}
 " Shortcuts for moving between tabs. {{{
 " C-p to go to the tab to the left
 " C-n to go to the tab to the right
 nnoremap <leader>p gT
 nnoremap <leader>n gt
 " }}}
-
 " bind function CleverTab to the tab key
 inoremap <Tab> <C-R>=CleverTab()<cr>
-
 " Time to get in serious stuff and stop using arrow keys ------- {{{
 nnoremap <left> <nop>
 nnoremap <right> <nop>
@@ -212,6 +214,11 @@ inoremap <left> <nop>
 inoremap <right> <nop>
 inoremap <up> <nop>
 inoremap <down> <nop>
+" }}}
+" editing $MYVIMRC file 'on-the-fly' --------- {{{
+nnoremap <leader>ev :tabe $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+" }}}
 " }}}
 
 " ***********************
@@ -266,14 +273,8 @@ if has("keymap")
     silent nnoremap  a<C-^><C-c>
 endif
 " }}}
-
-"set backup (dir and other stuff
+"set backup (dir and other stuff {{{
 set backup
 set backupdir=~/.vim/backups
 set directory=~/.vim/backups
-
-" editing $MYVIMRC file 'on-the-fly' --------- {{{
-nnoremap <leader>ev :tabe $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
 " }}}
-
