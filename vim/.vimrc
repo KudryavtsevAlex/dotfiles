@@ -251,7 +251,7 @@ autocmd CursorHold,BufWritePost * unlet! b:statusline_trailing_space_warning
 " File templates
 "----work WEEK ACCOUNT template file------- {{{
 augroup skel_group
-    if filereadable("/home/kudryav_v/.vim/skeleton/account.skel")
+    if filereadable("/home/kudryav_a/.vim/skeleton/account.skel")
         autocmd!
         autocmd BufNewFile *.account 0r /home/kudryav_a/.vim/skeleton/account.skel
     endif
