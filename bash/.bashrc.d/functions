@@ -1,0 +1,116 @@
+#vim:ft=sh:
+########## functions ##########
+function h2d() {
+    local num= # define local variable `num' that contain number for translation
+
+    # check if `bc' in the $PATH
+    [[ -n "$( which bc )" ]] || {
+        printf "No \`bc' in \$PATH\n"
+        return 1
+    }
+
+    # check number of arguments and argument
+    [[ $# -ne 1 ]] && {
+        printf "Use strongly one argument.\n"
+        printf "Usage: h2d <number_in_hex_format without \`0x' prefix>.\n"
+        return 1
+    }
+
+    case $1 in
+        -h|--help)
+            printf "This is simple hex2dec translator\n"
+            printf "Usage: h2d <number_in_hex_format without \`0x' prefix>\n"
+            return 0
+            ;;
+        [1-9*A-F][0-9A-F]*)
+            num="$1"
+            ;;
+        *)
+            printf "Usage: h2d <number_in_hex_format without \`0x' prefix>\n"
+            return 1
+            ;;
+    esac
+
+    echo "ibase=16; $@" | bc
+    return 0
+}
+
+function d2h() {
+    local num= # define local variable `num' that contain number for translation
+
+    # check if `bc' in the $PATH
+    [[ -n "$( which bc )" ]] || {
+        printf "No \`bc' in \$PATH\n"
+        return 1
+    }
+
+    # check number of arguments and argument
+    [[ $# -ne 1 ]] && {
+        printf "Use strongly one argument.\n"
+        printf "Usage: d2h <number_in_hex_format>.\n"
+        return 1
+    }
+
+    case $1 in
+        -h|--help)
+            printf "This is simple dec2hex translator\n"
+            printf "Usage: d2h <number_in_dec_format>\n"
+            return 0
+            ;;
+        [1-9]*[0-9]*)
+            num="$1"
+            ;;
+        *)
+            printf "Usage: d2h <number_in_dec_format>\n"
+            return 1
+            ;;
+    esac
+
+    echo "obase=16; $@" | bc
+    return 0
+}
+
+# function to start appropriate tmux session
+function start_tmux_session () {
+    if [ $# -ne 1 ]
+    then
+        printf "start_tmux_session needs argument\n"
+        printf "Available arguments are:\n\tleisure\n\twork\n"
+        return 1
+    fi
+
+    case $1 in
+        "leisure")
+            if [ -n "`echo $TMUX`" ]
+            then
+                printf "You already under 'tmux'\n"
+            else
+                if [ -n "`tmux list-sessions | grep "leisure" 2> /dev/null`" ]
+                then
+                    tmux attach-session -t "leisure"
+                else
+                    tmux new-session -s "leisure" "tmux source-file /home/kudryav_a/.tmux-session-start-files/leisure.tmux"
+                fi
+            fi
+            ;;
+        "work")
+            if [ -n "`echo $TMUX`" ]
+            then
+                printf "You already under 'tmux'\n"
+            else
+                if [ -n "`tmux list-sessions | grep "work" 2> /dev/null`" ]
+                then
+                    tmux attach-session -t "work"
+                else
+                    tmux new-session -s "work" "tmux source-file /home/kudryav_a/.tmux-session-start-files/work.tmux"
+                fi
+            fi
+            ;;
+        *)
+            printf "Now such session name found\n"
+            printf "It is very strange that we are here!\n"
+            return 1
+            ;;
+    esac
+    return 0
+}

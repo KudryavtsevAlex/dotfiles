@@ -1,0 +1,5 @@
+# disable 'Capslock' key
+# two variants
+[[ `which xmodmap 2> /dev/null` ]] && xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+
+#setxkbmap -option capslock:none 2> /dev/null

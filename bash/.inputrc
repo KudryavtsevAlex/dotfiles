@@ -1,0 +1,52 @@
+#$include /etc/inputrc
+
+# from /etc/inputrc
+set meta-flag on
+set input-meta on
+set convert-meta off
+set output-meta on
+set mark-symlinked-directories on
+
+# my own settings
+set editing-mode emacs
+# re-read init readline file
+#"\C-x\C-r": re-read-init-file
+# expand aliases
+"\C-xi": alias-expand-line
+
+set show-all-if-ambiguous on
+#"\M-s" : menu-complete
+Control-g: dump-macros
+set completion-ignore-case on
+set match-hidden-files off
+
+# magic space for history expansion after !<histnum> following by "Space"
+$if Bash
+    Space: magic-space
+$endif
+# my own macros
+"\C-xi": "vim $HOME/.inputrc"
+"\C-xb": "vim $HOME/.bashrc"
+"\C-xsb": "source $HOME/.bashrc"
+"\C-xcd": '`date +"%Y%m%d_%H%M%S"`'
+"\C-xv": " | vim -R -"
+"\C-xel": "cd $HOME/work/repos/e2ktlogs"
+"\C-xt": "vim `mktemp`"
+"\C-xa": "alias"
+"\C-xq": "\eb\"\ef\""
+"\C-x\"": "\eb\"\ef\""
+"\C-x\'": "\eb\'\ef\'"
+"\C-x\C-i": alias-expand-line
+"\C-xl": "ls "
+
+# incremental search
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# append a character denoted the file's type
+set visible-stats on
+
+# my own key-macro to go to the beginning of arguments for previous command
+# it goes to the previous command, goes to the beginning and searches the first space
+#"\M-o": "\C-p\C-a"
+#'\M-o': "\C-p\C-a\C-] "
